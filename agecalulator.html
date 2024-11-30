@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            background: linear-gradient(135deg, #8B4513, #D2B48C);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #f5f5dc;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 1.2em;
+            color: #4B2E1F;
+        }
+
+        input[type="date"] {
+            padding: 12px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #8B4513;
+            background-color: #fff8dc;
+            color: #4B2E1F;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 1em;
+            background-color: #8B4513;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5A2D0C;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.3em;
+            color: #4B2E1F;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="ageForm">
+            <label for="birthdate">Enter your birthdate:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+            <button type="submit">Calculate Age</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+    <script>
+        document.getElementById('ageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateAge();
+        });
+
+        function calculateAge() {
+            const birthdate = document.getElementById('birthdate').value;
+            if (!birthdate) {
+                alert('Please enter a valid birthdate');
+                return;
+            }
+
+            const birthDate = new Date(birthdate);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+
+            // Adjust for months and days
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            document.getElementById('result').textContent = `Your age is ${age}.`;
+        }
+    </script>
+</body>
+</html>
